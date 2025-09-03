@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { EVSLogo } from "./EVSLogo";
 import { ChevronDown, Menu } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +11,9 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export const Navigation = () => {
+  const location = useLocation();
+  const isActivePage = (path: string) => location.pathname === path;
+  
   const services = [
     "EV Warranty Packages",
     "EV Roadside Assistance", 
@@ -27,9 +31,11 @@ export const Navigation = () => {
         
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
-          <Button variant="ghost" className="text-foreground hover:text-primary">
-            HOME
-          </Button>
+          <Link to="/">
+            <Button variant="ghost" className={`${isActivePage('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
+              HOME
+            </Button>
+          </Link>
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -46,24 +52,37 @@ export const Navigation = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button variant="ghost" className="text-foreground hover:text-primary">
-            WARRANTY
-          </Button>
-          <Button variant="ghost" className="text-foreground hover:text-primary">
-            ROADSIDE ASSISTANCE
-          </Button>
-          <Button variant="ghost" className="text-foreground hover:text-primary">
-            BRANCHES
-          </Button>
-          <Button variant="ghost" className="text-foreground hover:text-primary">
-            ABOUT EVS
-          </Button>
+          <Link to="/warranty">
+            <Button variant="ghost" className={`${isActivePage('/warranty') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
+              WARRANTY
+            </Button>
+          </Link>
+          <Link to="/roadside-assistance">
+            <Button variant="ghost" className={`${isActivePage('/roadside-assistance') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
+              ROADSIDE ASSISTANCE
+            </Button>
+          </Link>
+          <Link to="/branches">
+            <Button variant="ghost" className={`${isActivePage('/branches') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
+              BRANCHES
+            </Button>
+          </Link>
+          <Link to="/about">
+            <Button variant="ghost" className={`${isActivePage('/about') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
+              ABOUT EVS
+            </Button>
+          </Link>
         </div>
 
         <div className="flex items-center gap-4">
           <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 animate-glow">
             BOOK SERVICE
           </Button>
+          <Link to="/admin">
+            <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              Admin
+            </Button>
+          </Link>
           
           {/* Mobile Menu */}
           <Sheet>
